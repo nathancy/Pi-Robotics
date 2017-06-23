@@ -52,7 +52,7 @@ class MotorControl(object):
     # Initialize the object
     def __init__(self):
         if ( len(self._instances)>1 ):
-            print "ERROR: One instance of MotorControl is running already."
+            print("ERROR: One instance of MotorControl is running already.")
             exit(1)
         self._instances.append(self)
 
@@ -61,7 +61,7 @@ class MotorControl(object):
     # Move FORWARD so many units
     def forward(self):
 #       for step in range(0,units):
-        print "Forward"
+        print("Forward")
         gpio.output(_LEFT_MOTOR_FORWARD, True)
         gpio.output(_LEFT_MOTOR_BACKWARD, False)
         gpio.output(_RIGHT_MOTOR_FORWARD, True)
@@ -77,7 +77,7 @@ class MotorControl(object):
     # Move BACKWARD so many units
     def backward(self,units):
 #        for step in range(0,units):
-         print "Going Backward"
+         print("Going Backward")
          gpio.output(_LEFT_MOTOR_FORWARD, False)
          gpio.output(_LEFT_MOTOR_BACKWARD, True)
          gpio.output(_RIGHT_MOTOR_FORWARD, False)
@@ -92,7 +92,7 @@ class MotorControl(object):
     # Move RIGHT so many units
     def right(self,units):
         for step in range(0,units):
-            print "Right"
+            print("Right")
             gpio.output(_LEFT_MOTOR_FORWARD, True)
             gpio.output(_LEFT_MOTOR_BACKWARD, False)
             gpio.output(_RIGHT_MOTOR_FORWARD, False)
@@ -100,15 +100,14 @@ class MotorControl(object):
 
             time.sleep (_TURN_DURATION/1000)
             
-            
             gpio.output(_LEFT_MOTOR_FORWARD, False)
-						gpio.output(_RIGHT_MOTOR_BACKWARD, False)
+            gpio.output(_RIGHT_MOTOR_BACKWARD, False)
 						
 #-------------------------------------------------------------------------------
     # Move LEFT so many units
     def left(self,units):
         for step in range(0,units):
-            print "Left"
+            print("Left")
             gpio.output(_LEFT_MOTOR_FORWARD, False)
             gpio.output(_LEFT_MOTOR_BACKWARD, True)
             gpio.output(_RIGHT_MOTOR_FORWARD, True)

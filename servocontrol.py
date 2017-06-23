@@ -43,31 +43,31 @@ class ServoControl(object):
     # Initialize the object
     def __init__(self):
         if ( len(self._instances)>1 ):
-            print "ERROR: One instance of ServoControl is running already."
+            print("ERROR: One instance of ServoControl is running already.")
             exit(1)
         self._instances.append(self)
 
 #-------------------------------------------------------------------------------        
     # "Look" left
     def panleft(self):
-			pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
 #-------------------------------------------------------------------------------        
     # "Look" right
     def panright(self):
-			pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_RIGHT)
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_RIGHT)
 #-------------------------------------------------------------------------------        
     # Position pan servo in the middle
     def pancenter(self):
-			pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
 #-------------------------------------------------------------------------------        
     # "Look" up
     def tiltup(self):
-			pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_UP)
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_UP)
 #-------------------------------------------------------------------------------        
     # "Look" down
     def tiltdown(self):
-			pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_DOWN)
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_DOWN)
 #-------------------------------------------------------------------------------        
     # Position tilt servo in the middle
     def tiltcenter(self):
-			pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
