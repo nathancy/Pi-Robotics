@@ -96,3 +96,17 @@ node_modules
 *.iml
 s3_website.yml
 .assets-cache
+
+
+.installed.cfg
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64
+*.pyo
+*.pyc
