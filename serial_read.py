@@ -1,12 +1,11 @@
 import serial
-
-ser = serial.Serial('/dev/ttyACM0', 9600)
+from pprint import pprint
+ser = serial.Serial('/dev/ttyACM0', 115200)
 
 while True:
     var = ser.readline()
-    
-    print(var)
-    print("port was", ser.name)
-    print("baudrate was", ser.baudrate)
+    #print(type(var))
+    print(var) 
+    #print("baudrate was", ser.baudrate)
 
 
