@@ -1,6 +1,6 @@
-# Controlling a robot with two motors that can avoid obstacles by using a sonar mounted on pan/tilt servos
+# Controlling a robot with two motors that can avoid obstacles by using a ultrasonic mounted on pan/tilt servos
 
-import motorcontrol, servocontrol, sonarcontrol, auxiliary
+import motorcontrol, servocontrol, ultrasoniccontrol, auxiliary
 import time
 
 #-------------------------------------------------------------------------------
@@ -12,19 +12,19 @@ def findWay():
     #pan left
     servo.panleft()
     time.sleep(1)
-    distanceArray.append(sonar.distance())
+    distanceArray.append(ultrasonic.distance())
     aux.writetofile('Pan Left Distace', distanceArray[0])
 	
     #pan center
     servo.pancenter()
     time.sleep(1)
-    distanceArray.append(sonar.distance())
+    distanceArray.append(ultrasonic.distance())
     aux.writetofile('Pan Center Distace', distanceArray[1])
 	
     #pan right
     servo.panright()
     time.sleep(1)
-    distanceArray.append(sonar.distance())
+    distanceArray.append(ultrasonic.distance())
     aux.writetofile('Pan Right Distace', distanceArray[2])
 
     maxdistance=max(distanceArray)
@@ -43,13 +43,13 @@ def findWay():
   	
 #------------------------------------------------------------------------------- 
 def move():
-    while sonar.distance()>=10:
+    while ultrasonic.distance()>=10:
         motor.forward()
         print("moving forward")
     print("stopping")
     motor.allStop()
     time.sleep(0.5)
-    while sonar.distance()<10:
+    while ultrasonic.distance()<10:
         print("moving backward")
         motor.backward()	
     motor.allStop()
@@ -59,7 +59,7 @@ def move():
 #instantiate objects
 motor = motorcontrol.MotorControl()
 servo = servocontrol.ServoControl()
-sonar = sonarcontrol.SonarControl()
+ultrasonic = ultrasoniccontrol.UltrasonicControl()
 aux = auxiliary.AuxiliaryHelp()
 
 #center servos
