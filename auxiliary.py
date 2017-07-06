@@ -19,7 +19,7 @@ class AuxiliaryHelp(object):
     # Initialize the object
     def __init__(self):
         if ( len(self._instances)>1 ):
-            print "ERROR: One instance of AuxiliaryHelp is running already."
+            print("ERROR: One instance of AuxiliaryHelp is running already.")
             exit(1)
         self._instances.append(self)
 
@@ -32,13 +32,13 @@ class AuxiliaryHelp(object):
 #-------------------------------------------------------------------------------
     #write a value to a log file
     def writetofile (self,label,value):
-    		logfile = 'logfile.txt'
-    		mystring = label+': '+str(value)+'\n'
-				try:
-				    f=open(logfile, 'a')
-				    f.write(mystring)
-				    print 'Wrote the following to '+logfile+':\n'+label+': '+str(value)+'\n'
-				    f.close()
-				except IOError:
-				    print("cannot find file: " + logfile)
-				    exit()
+        logfile = 'logfile.txt'
+        mystring = label+': '+str(value)+'\n'
+        try:
+            f=open(logfile, 'a')
+            f.write(mystring)
+            print('Wrote the following to '+logfile+':\n'+label+': '+str(value)+'\n')
+            f.close()
+        except IOError:
+            print("cannot find file: " + logfile)
+            exit()

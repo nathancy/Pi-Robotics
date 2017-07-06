@@ -32,7 +32,7 @@ class SonarControl(object):
     # Initialize the object
     def __init__(self):
         if ( len(self._instances)>1 ):
-            print "ERROR: One instance of SonarControl is running already."
+            print("ERROR: One instance of SonarControl is running already.")
             exit(1)
         self._instances.append(self)									
 

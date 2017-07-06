@@ -3,23 +3,10 @@
 import motorcontrol, servocontrol, sonarcontrol, auxiliary
 import time
 
-#instantiate objects
-motor = motorcontrol.MotorControl()
-servo = servocontrol.ServoControl()
-sonar = sonarcontrol.SonarControl()
-aux = auxiliary.AuxiliaryHelp()
-
-#center servos
-servo.pancenter()
-servo.tiltcenter()
-
-#start logging data
-aux.writetofile('Servos are dead center', 0)
-
 #-------------------------------------------------------------------------------
 # Setting direction (finding the longest way without obstacles
 
-def findWay(self):
+def findWay():
     distanceArray = []
 
     #pan left
@@ -55,7 +42,7 @@ def findWay(self):
     del distanceArray[:]
   	
 #------------------------------------------------------------------------------- 
-def move(self):
+def move():
     while sonar.distance()>=10:
         motor.forward()
         print("moving forward")
@@ -68,6 +55,19 @@ def move(self):
     motor.allStop()
     print("resetting position")
 #-------------------------------------------------------------------------------
+
+#instantiate objects
+motor = motorcontrol.MotorControl()
+servo = servocontrol.ServoControl()
+sonar = sonarcontrol.SonarControl()
+aux = auxiliary.AuxiliaryHelp()
+
+#center servos
+servo.pancenter()
+servo.tiltcenter()
+
+#start logging data
+aux.writetofile('Servos are dead center', 0)
 
 try:
     while True: 
