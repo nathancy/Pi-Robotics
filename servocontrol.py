@@ -6,6 +6,9 @@
 # Download this file from github: https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/blob/master/Adafruit_PWM_Servo_Driver/Adafruit_PWM_Servo_Driver.py
 
 import time
+import sys
+sys.path.append("/home/cyber/Cyber/Pi-Blockchain/libraries")
+
 from Adafruit_PWM_Servo_Driver import PWM
 
 #### Constants ####
