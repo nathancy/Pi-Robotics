@@ -1,6 +1,6 @@
 # Controlling a robot with two motors that can avoid obstacles by using a ultrasonic mounted on pan/tilt servos
 
-import motorcontrol, servocontrol, ultrasoniccontrol, auxiliary
+import motorControl, servoControl, ultrasonicControl, auxiliary
 import time
 
 #-------------------------------------------------------------------------------
@@ -57,9 +57,9 @@ def move():
 #-------------------------------------------------------------------------------
 
 #instantiate objects
-motor = motorcontrol.MotorControl()
-servo = servocontrol.ServoControl()
-ultrasonic = ultrasoniccontrol.UltrasonicControl()
+motor = motorControl.MotorControl()
+servo = servoControl.ServoControl()
+ultrasonic = ultrasonicControl.UltrasonicControl()
 aux = auxiliary.AuxiliaryHelp()
 
 #center servos
