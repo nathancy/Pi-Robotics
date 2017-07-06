@@ -110,3 +110,5 @@ lib
 lib64
 *.pyo
 *.pyc
+
+*.txt
