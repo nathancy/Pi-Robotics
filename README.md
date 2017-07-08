@@ -12,9 +12,9 @@ Run with program with:
 ```
 python main.py
 ```
-main.py - Main driver.
-LIDARcontrol.py - Module to read LIDAR sensor data on Raspberry Pi from Arduino through serial port.
-motorControl.py - Module for motor control.
-servoControl.py - Module for servo control.
-ultrasonicControl.py - Module for reading ultrasonic sensor data on Raspberry Pi.
-auxiliary.py - Auxiliary functions such as releasing GPIO pins data logging.
+- `main.py` - Main driver.
+- `LIDARcontrol.py` - Module to read LIDAR sensor data on Raspberry Pi from Arduino through serial port.
+- `motorControl.py` - Module for motor control.
+- `servoControl.py` - Module for servo control.
+- `ultrasonicControl.py` - Module for reading ultrasonic sensor data on Raspberry Pi.
+- `auxiliary.py` - Auxiliary functions such as releasing GPIO pins data logging.
