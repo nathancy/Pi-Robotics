@@ -34,6 +34,6 @@ class LIDARControl(object):
           
         # Ensure reading is valid 
         if len(clean_sensor_reading) is 1:
-            if str(clean_sensor_reading[0]).isnumeric():
+            if str(clean_sensor_reading[0]).isdigit():
                 return int(clean_sensor_reading[0])
 
