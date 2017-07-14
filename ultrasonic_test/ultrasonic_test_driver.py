@@ -5,9 +5,10 @@ ultrasonic = ultrasonicControl.UltrasonicControl()
 
 try:
     while True:
-        distance = ultrasonic.distance()
-        print("Measured Distance = %.1f cm" % distance)
+        raw_distance = ultrasonic.distance(0)
+        print("Measured Raw Distance = %f cm" % raw_distance)
+        rounded_distance = ultrasonic.distance(1)
+        print("Measured Rounded Distance = %.1f cm" % rounded_distance)
         sleep(1)
-
 except KeyboardInterrupt:
     exit(1)

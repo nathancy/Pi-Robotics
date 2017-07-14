@@ -41,7 +41,8 @@ class UltrasonicControl(object):
 #-------------------------------------------------------------------------------        
     # Read DISTANCE ahead of the robot. We are taking 5 readings and averaging the rest of the values.
     # reads distance data in centimeters
-    def distance(self):
+    # Set mode 0 for raw data, set mode 1 for rounded data
+    def distance(self, mode):
 
         # set Trigger to HIGH
         GPIO.output(_ULTRASONIC_TRIG, True)
@@ -66,8 +67,9 @@ class UltrasonicControl(object):
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
         distance = (TimeElapsed * 34300) / 2
-        
-        # round to two decimal places
-        rounded_distance = round(distance,2)
-     
-        return rounded_distance
+       
+        if mode == 0:
+            return distance
+        elif mode == 1:
+            # round to two decimal places
+            return round(distance,2)
