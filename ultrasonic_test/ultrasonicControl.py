@@ -19,6 +19,8 @@ _ULTRASONIC_TRIG=12
 _ULTRASONIC_ECHO=32
 
 # Set up ultrasonic pins
+# Ultrasonic sensor TRIG pin is input so set the pin on the PI as output
+# Ultrasonic sensor ECHO pin is output so set the pin on the PI as input
 GPIO.setup(_ULTRASONIC_TRIG, GPIO.OUT)
 GPIO.setup(_ULTRASONIC_ECHO, GPIO.IN)
 
@@ -36,9 +38,9 @@ class UltrasonicControl(object):
             print("ERROR: One instance of UltrasonicControl is running already.")
             exit(1)
         self._instances.append(self)									
-
 #-------------------------------------------------------------------------------        
-    # Read DISTANCE ahead of the robot. We are taking 5 readings, removing outliers and averaging the rest of the values.
+    # Read DISTANCE ahead of the robot. We are taking 5 readings and averaging the rest of the values.
+    # reads distance data in centimeters
     def distance(self):
 
         # set Trigger to HIGH
@@ -64,7 +66,8 @@ class UltrasonicControl(object):
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
         distance = (TimeElapsed * 34300) / 2
+        
+        # round to two decimal places
+        rounded_distance = round(distance,2)
      
-        return distance
-        
-        
+        return rounded_distance
