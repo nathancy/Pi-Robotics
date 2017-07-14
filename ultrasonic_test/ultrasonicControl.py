@@ -6,21 +6,21 @@
 
 import time
 import numpy as np
-import RPi.GPIO as gpio
+import RPi.GPIO as GPIO 
 
 #### Constants ####
 
 #-------------------------------------------------------------------------------
 # GPIO Mode (BOARD/BCM)
-gpio.setmode(gpio.BOARD)
+GPIO.setmode(GPIO.BOARD)
 
 # Assign GPIO pins to variables
-_ULTRASONIC_OUT=32
-_ULTRASONIC_IN=12
+_ULTRASONIC_TRIG=12
+_ULTRASONIC_ECHO=32
 
-#***Set up ultrasonic pins
-gpio.setup(_ULTRASONIC_OUT, gpio.OUT)
-gpio.setup(_ULTRASONIC_IN, gpio.IN)
+# Set up ultrasonic pins
+GPIO.setup(_ULTRASONIC_TRIG, GPIO.OUT)
+GPIO.setup(_ULTRASONIC_ECHO, GPIO.IN)
 
 #### Objects ####
 
@@ -40,57 +40,31 @@ class UltrasonicControl(object):
 #-------------------------------------------------------------------------------        
     # Read DISTANCE ahead of the robot. We are taking 5 readings, removing outliers and averaging the rest of the values.
     def distance(self):
-        #initializing sensor
 
-        gpio.output(_ULTRASONIC_OUT, gpio.LOW)
-        time.sleep(0.3)
-
-        #creating an array to hold gathered data from ultrasonic
-        d = []
-        #take 5 readings
-        for i in range(0,5):
-            #sending pulse
-            gpio.output(_ULTRASONIC_OUT, True)
-            
-            #waiting 10 micro seconds
-            time.sleep(0.00001)
-            
-            #stopping pulse
-            gpio.output(_ULTRASONIC_OUT, False)
-            
-            print("test1")
-            #listening for the pulse
-            while gpio.input(_ULTRASONIC_IN)== 0:
-                signaloff = time.time()
-                
-            #record the time
-            while gpio.input(_ULTRASONIC_IN)== 1:
-                signalon = time.time()
-                          
-            #find out the difference
-            timepassed = signalon - signaloff
-            
-            #convert the value above into centimeters
-            distance = timepassed * 17000
-            
-            #insert read value into d[] array
-            d.append(distance)
-            
-        d=np.array(d) #creating numpy 2d array
-        m=2.
-        
-        #finding a median and removing outliers
-        tempvar = np.abs(d - np.median(d))
-        mdev = np.median(tempvar)
-        s = tempvar/mdev if mdev else 0
-        
-        filtered_values = d[s<m] #this is an array updated with values without outliers
-        
-        prefinal = round(np.mean(filtered_values)) #taking the mean of all remaining values
-        
-        distance = int(prefinal) #converting the value to integer
-        
-        gpio.cleanup()
-        #return the distance
+        # set Trigger to HIGH
+        GPIO.output(_ULTRASONIC_TRIG, True)
+     
+        # set Trigger after 0.01ms to LOW
+        time.sleep(0.00001)
+        GPIO.output(_ULTRASONIC_TRIG, False)
+     
+        StartTime = time.time()
+        StopTime = time.time()
+     
+        # save StartTime
+        while GPIO.input(_ULTRASONIC_ECHO) == 0:
+            StartTime = time.time()
+     
+        # save time of arrival
+        while GPIO.input(_ULTRASONIC_ECHO) == 1:
+            StopTime = time.time()
+     
+        # time difference between start and arrival
+        TimeElapsed = StopTime - StartTime
+        # multiply with the sonic speed (34300 cm/s)
+        # and divide by 2, because there and back
+        distance = (TimeElapsed * 34300) / 2
+     
         return distance
+        
         
