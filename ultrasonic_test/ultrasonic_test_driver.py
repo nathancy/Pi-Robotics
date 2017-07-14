@@ -1,6 +1,9 @@
+# Isolated test module for reading ultrasonic sensor on raspberry pi using GPIO
+
 import ultrasonicControl
 from time import sleep
 
+# Instantiate object
 ultrasonic = ultrasonicControl.UltrasonicControl()
 
 try:
@@ -11,4 +14,5 @@ try:
         print("Measured Rounded Distance = %.1f cm" % rounded_distance)
         sleep(1)
 except KeyboardInterrupt:
+    ultrasonic.cleanup()
     exit(1)

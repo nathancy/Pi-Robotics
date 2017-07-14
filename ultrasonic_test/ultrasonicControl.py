@@ -5,7 +5,6 @@
 #### Imports ####
 
 import time
-import numpy as np
 import RPi.GPIO as GPIO 
 
 #### Constants ####
@@ -38,6 +37,11 @@ class UltrasonicControl(object):
             print("ERROR: One instance of UltrasonicControl is running already.")
             exit(1)
         self._instances.append(self)									
+#-------------------------------------------------------------------------------        
+    # Properly close GPIO pins
+    def cleanup(self):
+        GPIO.cleanup()
+
 #-------------------------------------------------------------------------------        
     # Read DISTANCE ahead of the robot. We are taking 5 readings and averaging the rest of the values.
     # reads distance data in centimeters
@@ -73,3 +77,4 @@ class UltrasonicControl(object):
         elif mode == 1:
             # round to two decimal places
             return round(distance,2)
+
