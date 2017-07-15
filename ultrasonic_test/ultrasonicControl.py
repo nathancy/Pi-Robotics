@@ -5,6 +5,7 @@
 #### Imports ####
 
 import time
+import numpy as np
 import RPi.GPIO as GPIO 
 
 #### Constants ####
@@ -43,38 +44,61 @@ class UltrasonicControl(object):
         GPIO.cleanup()
 
 #-------------------------------------------------------------------------------        
-    # Read DISTANCE ahead of the robot. We are taking 5 readings and averaging the rest of the values.
+    # Read DISTANCE ahead of the robot. We are taking 5 readings and averaging the values.
     # reads distance data in centimeters
     # Set mode 0 for raw data, set mode 1 for rounded data
     def distance(self, mode):
+    
+        # Create array to hold gathered data from ultrasonic readings
+        ultrasonic_data = []
 
-        # set Trigger to HIGH
-        GPIO.output(_ULTRASONIC_TRIG, True)
-     
-        # set Trigger after 0.01ms to LOW
-        time.sleep(0.00001)
-        GPIO.output(_ULTRASONIC_TRIG, False)
-     
-        StartTime = time.time()
-        StopTime = time.time()
-     
-        # save StartTime
-        while GPIO.input(_ULTRASONIC_ECHO) == 0:
+        for num in range(5):
+            # set Trigger to HIGH
+            GPIO.output(_ULTRASONIC_TRIG, True)
+         
+            # set Trigger after 0.01ms to LOW
+            time.sleep(0.00001)
+            GPIO.output(_ULTRASONIC_TRIG, False)
+         
             StartTime = time.time()
-     
-        # save time of arrival
-        while GPIO.input(_ULTRASONIC_ECHO) == 1:
             StopTime = time.time()
-     
-        # time difference between start and arrival
-        TimeElapsed = StopTime - StartTime
-        # multiply with the sonic speed (34300 cm/s)
-        # and divide by 2, because there and back
-        distance = (TimeElapsed * 34300) / 2
-       
-        if mode == 0:
+         
+            # save StartTime
+            while GPIO.input(_ULTRASONIC_ECHO) == 0:
+                StartTime = time.time()
+         
+            # save time of arrival
+            while GPIO.input(_ULTRASONIC_ECHO) == 1:
+                StopTime = time.time()
+         
+            # time difference between start and arrival
+            TimeElapsed = StopTime - StartTime
+
+            # multiply with the sonic speed (34300 cm/s)
+            # and divide by 2, because there and back
+            distance = (TimeElapsed * 34300) / 2
+
+            ultrasonic_data.append(distance)
+         
+        # Creating numpy 2d array
+        ultrasonic_data = np.array(ultrasonic_data)
+        m = 2.
+
+        # Find median and remove outliers
+        tempvar = np.abs(ultrasonic_data - np.median(ultrasonic_data))
+        median = np.median(tempvar)
+        s = tempvar/median if median else 0
+
+        # Array updated with values without outliers
+        filtered_values = ultrasonic_data[s<m]
+
+        # Take mean of all remaining values
+        distance = round(np.mean(filtered_values))
+        
+        # Return raw data
+        if (mode == 0):
             return distance
+        # Return rounded data to two decimal places
         elif mode == 1:
-            # round to two decimal places
             return round(distance,2)
 
