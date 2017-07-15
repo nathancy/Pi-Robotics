@@ -12,19 +12,19 @@ def findWay():
     #pan left
     servo.panleft()
     time.sleep(1)
-    distanceArray.append(ultrasonic.distance())
+    distanceArray.append(ultrasonic.distance(1))
     aux.writetofile('Pan Left Distace', distanceArray[0])
 	
     #pan center
     servo.pancenter()
     time.sleep(1)
-    distanceArray.append(ultrasonic.distance())
+    distanceArray.append(ultrasonic.distance(1))
     aux.writetofile('Pan Center Distace', distanceArray[1])
 	
     #pan right
     servo.panright()
     time.sleep(1)
-    distanceArray.append(ultrasonic.distance())
+    distanceArray.append(ultrasonic.distance(1))
     aux.writetofile('Pan Right Distace', distanceArray[2])
 
     maxdistance=max(distanceArray)
@@ -43,13 +43,13 @@ def findWay():
   	
 #------------------------------------------------------------------------------- 
 def move():
-    while ultrasonic.distance()>=10:
+    while ultrasonic.distance(1)>=10:
         motor.forward()
         print("moving forward")
     print("stopping")
     motor.allStop()
     time.sleep(0.5)
-    while ultrasonic.distance()<10:
+    while ultrasonic.distance(1)<10:
         print("moving backward")
         motor.backward()	
     motor.allStop()
