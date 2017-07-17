@@ -41,6 +41,11 @@ try:
                 motor.backward()
                 sleep(.25)
             motor.stop()
+        elif command == 'q':
+            print("Quit")
+            motor.stop()
+            motor.cleanup()
+            exit(1)
         else: 
             motor.stop()
 

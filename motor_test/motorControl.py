@@ -138,9 +138,7 @@ class MotorControl(object):
         GPIO.output(M4, False)
 
 #-------------------------------------------------------------------------------
-    #clean up GPIO
+    # Properly clean up GPIO
     def cleanup (self):
         GPIO.cleanup()
-
-
 
