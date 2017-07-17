@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# Motor Control for Raspberry Pi with DRV8833 Dual Motor Driver Carrier 
+# Motor Control for Raspberry Pi with MC33886 Motor Driver Board
+# http://www.robotshop.com/en/mc33886-raspberry-pi-motor-driver-board-raspberry-pi.html
 
 #-------------------------------------------------------------------------------
 #### Imports ####
