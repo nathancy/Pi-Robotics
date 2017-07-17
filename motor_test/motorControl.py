@@ -11,29 +11,27 @@ import RPi.GPIO as GPIO
 #### Constants ####
 
 #-------------------------------------------------------------------------------
-# Assign GPIO pins to variables
+# GPIO Mode (BOARD/BCM)
+GPIO.setmode(GPIO.BOARD)
 
-# Pins for motors 
-
-# Step duration is used for forward and backward commands.
-
-# Turn duration in milliseconds.
-_TURN_DURATION = 1800
-#-------------------------------------------------------------------------------
-# Set up the GPIO pins
-#***Set up motor pins
-
-# Right
+# Assign GPIO pins for motors
+# Right motor
 M1 = 38
 M2 = 40
 
-# Left
+# Left motor
 M3 = 31
 M4 = 33
 PWMA = 37
 PWMB = 32
 
-GPIO.setmode(GPIO.BOARD)
+# Step duration is used for forward and backward commands.
+_STEP_DURATION = 1000
+
+# Turn duration in milliseconds.
+_TURN_DURATION = 1800
+#-------------------------------------------------------------------------------
+# Set up the motor GPIO pins
 GPIO.setup(M1, GPIO.OUT)
 GPIO.setup(M2, GPIO.OUT)
 GPIO.setup(M3, GPIO.OUT)
@@ -46,7 +44,7 @@ p2 = GPIO.PWM(PWMB, 5000)
 p1.start(50)
 p2.start(50)
 
-# "Turn off" all motors
+# Initially "Turn off" all motors
 GPIO.output(M1, False)
 GPIO.output(M2, False)
 GPIO.output(M3, False)
@@ -67,79 +65,73 @@ class MotorControl(object):
             exit(1)
         self._instances.append(self)
 
-        
 #-------------------------------------------------------------------------------    
-    # Move FORWARD so many units
+    # Move FORWARD 
     def forward(self):
-#       for step in range(0,units):
-        print("Forward")
+        #print("Forward")
         GPIO.output(M1, True)
         GPIO.output(M2, False)
         GPIO.output(M3, False)
         GPIO.output(M4, True)
         
-#        time.sleep (_STEP_DURATION/1000)
+        '''
+        time.sleep (_STEP_DURATION/1000)
         
-#        GPIO.output(_LEFT_MOTOR_FORWARD, False)
-#        GPIO.output(_RIGHT_MOTOR_FORWARD, False)
-            
+        GPIO.output(M1, False)
+        GPIO.output(M4, False)
+	'''
             
 #-------------------------------------------------------------------------------
-    # Move BACKWARD so many units
+    # Move BACKWARD 
     def backward(self):
-#        for step in range(0,units):
-         print("Going Backward")
-         GPIO.output(M1, False)
-         GPIO.output(M2, True)
-         GPIO.output(M3, True)
-         GPIO.output(M4, False)
+        #print("Backward")
+        GPIO.output(M1, False)
+        GPIO.output(M2, True)
+        GPIO.output(M3, True)
+        GPIO.output(M4, False)
 
-#            time.sleep (_STEP_DURATION/1000)
-            
-#            GPIO.output(_LEFT_MOTOR_BACKWARD, False)
-#            GPIO.output(_RIGHT_MOTOR_BACKWARD, False)            
+        '''
+        time.sleep (_STEP_DURATION/1000)
+        
+        GPIO.output(M2, False)
+        GPIO.output(M3, False)
+	'''
 
 #-------------------------------------------------------------------------------
-    # Move RIGHT so many units
+    # Move RIGHT 
     def right(self):
-        #for step in range(0,units):
-            print("Right")
-
-
-            GPIO.output(M1, True)
-            GPIO.output(M2, False)
-            GPIO.output(M3, True)
-            GPIO.output(M4, False) #
-            
-            #time.sleep (_TURN_DURATION/1000)
-            '''
-            time.sleep (_TURN_DURATION/1000)
-            
-            GPIO.output(M2, False)
-            GPIO.output(M3, False)
-	    '''
+        #print("right")
+        GPIO.output(M1, True)
+        GPIO.output(M2, False)
+        GPIO.output(M3, True)
+        GPIO.output(M4, False) 
+        
+        '''
+        time.sleep (_TURN_DURATION/1000)
+        
+        GPIO.output(M1, False)
+        GPIO.output(M3, False)
+	'''
 
 #-------------------------------------------------------------------------------
-    # Move LEFT so many units
+    # Move LEFT 
     def left(self):
-#        for step in range(0,units):
-            print("Left")
-
-            GPIO.output(M1, False)
-            GPIO.output(M2, True)
-            GPIO.output(M3, False)
-            GPIO.output(M4, True)
-           
-            '''
-            time.sleep (_TURN_DURATION/1000)
-            
-            GPIO.output(M2, False)
-            GPIO.output(M3, False)
-            '''
+        #print("Left")
+        GPIO.output(M1, False)
+        GPIO.output(M2, True)
+        GPIO.output(M3, False)
+        GPIO.output(M4, True)
+       
+        '''
+        time.sleep (_TURN_DURATION/1000)
+        
+        GPIO.output(M2, False)
+        GPIO.output(M3, False)
+        '''
 
 #-------------------------------------------------------------------------------           
     # STOP all the motors
-    def allStop(self):
+    def stop(self):
         GPIO.output(M1, False)
         GPIO.output(M2, False)
         GPIO.output(M3, False)
