@@ -15,8 +15,8 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 
 # Assign GPIO pins to variables
-_ULTRASONIC_TRIG=36
-_ULTRASONIC_ECHO=32
+_ULTRASONIC_TRIG=16
+_ULTRASONIC_ECHO=12
 
 # Set up ultrasonic pins
 # Ultrasonic sensor TRIG pin is input so set the pin on the PI as output
