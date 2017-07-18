@@ -1,7 +1,28 @@
 #!/usr/bin/env python
 # Motor Control for Raspberry Pi with MC33886 Motor Driver Board
-# http://www.robotshop.com/en/mc33886-raspberry-pi-motor-driver-board-raspberry-pi.html
+# Product: http://www.robotshop.com/en/mc33886-raspberry-pi-motor-driver-board-raspberry-pi.html
+# Datasheet: http://www.robotshop.com/media/files/pdf2/rpi_motor_driver_board_-_waveshare_wiki.pdf
+# Schematic: http://www.robotshop.com/media/files/pdf2/rpi-motor-driver-board-schematic.pdf
 
+'''
+On the Motor Driver board, M1 and M2 are connected to the right motor while
+M3 and M4 are connected to the left motor. The orientation of the actual 
+(black or red wire) doesn't matter when connected to the motor driver board. 
+Motors are interally controlled by outputting signals through GPIO.
+PWMA and PWMB are output enable pins. When driven high, the PWM pulse will be 
+outputted from the motor pins to control the speed of the motor.
+
+          Interface       Pin name
+-------------------------------------------------------------------------------
+Right motor: M1      --> _RIGHT_MOTOR_1
+             M2      --> _RIGHT_MOTOR_2
+             PWMA    --> _RIGHT_MOTOR_PWM_SPEED
+
+Left motor:  M3      --> _LEFT_MOTOR_1
+             M4      --> _LEFT_MOTOR_2
+             PWMB    --> _LEFT_MOTOR_PWM_SPEED
+
+'''
 #-------------------------------------------------------------------------------
 #### Imports ####
  
@@ -22,7 +43,11 @@ M2 = 40
 # Left motor
 M3 = 31
 M4 = 33
+
+# Output enable pins (active high enable)
+# Right motor
 PWMA = 37
+# Left motor
 PWMB = 32
 
 # Step duration is used for forward and backward commands.
