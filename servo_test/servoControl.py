@@ -16,12 +16,12 @@ from Adafruit_PWM_Servo_Driver import PWM
 #-------------------------------------------------------------------------------
 #### Servo Initialization
 
-#I2C address is 0x40
+# I2C address is 0x40
 pwm = PWM(0x40)
-#Servo frequency 50Hz
-pwm.setPWMFreq(50)
+# Servo frequency 60Hz
+pwm.setPWMFreq(60)
 
-# these values cannot be smaller than 104 and more than 521; otherwise your servos may be damaged. Use at your own risk!
+# These values cannot be smaller than 104 and more than 521; otherwise your servos may be damaged. Use at your own risk!
 _PAN_SERVO_CHANNEL=0
 _TILT_SERVO_CHANNEL=1
 
@@ -29,11 +29,9 @@ _PAN_SERVO_LEFT=200
 _PAN_SERVO_RIGHT=520
 _PAN_SERVO_CENTER=225
 
-_TILT_SERVO_CHANNEL=1
 _TILT_SERVO_UP=200
 _TILT_SERVO_DOWN=520
 _TILT_SERVO_CENTER=225
-
 
 #### Objects ####
 
@@ -54,29 +52,23 @@ class ServoControl(object):
     # "Look" left
     def panleft(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
-        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" right
     def panright(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_RIGHT)
-        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # Position pan servo in the middle
     def pancenter(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
-        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" up
     def tiltup(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_UP)
-        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" down
     def tiltdown(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_DOWN)
-        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # Position tilt servo in the middle
     def tiltcenter(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
-        time.sleep(1)
