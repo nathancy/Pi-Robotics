@@ -14,13 +14,13 @@ outputted from the motor pins to control the speed of the motor.
 
           Interface       Pin name
 -------------------------------------------------------------------------------
-Right motor: M1      --> _RIGHT_MOTOR_1
-             M2      --> _RIGHT_MOTOR_2
-             PWMA    --> _RIGHT_MOTOR_PWM_SPEED
+Right motor: M1        --> _RIGHT_MOTOR_1
+             M2        --> _RIGHT_MOTOR_2
+             PWMA      --> _RIGHT_MOTOR_PWM_SPEED
 
-Left motor:  M3      --> _LEFT_MOTOR_1
-             M4      --> _LEFT_MOTOR_2
-             PWMB    --> _LEFT_MOTOR_PWM_SPEED
+Left motor:  M3        --> _LEFT_MOTOR_1
+             M4        --> _LEFT_MOTOR_2
+             PWMB      --> _LEFT_MOTOR_PWM_SPEED
 
 '''
 #-------------------------------------------------------------------------------
@@ -37,18 +37,18 @@ GPIO.setmode(GPIO.BOARD)
 
 # Assign GPIO pins for motors
 # Right motor
-M1 = 38
-M2 = 40
+_RIGHT_MOTOR_1 = 38
+_RIGHT_MOTOR_2 = 40
 
 # Left motor
-M3 = 31
-M4 = 33
+_LEFT_MOTOR_1 = 31
+_LEFT_MOTOR_2 = 33
 
 # Output enable pins (active high enable)
 # Right motor
-PWMA = 37
+_RIGHT_MOTOR_PWM_SPEED = 37
 # Left motor
-PWMB = 32
+_LEFT_MOTOR_PWM_SPEED = 32
 
 # Step duration is used for forward and backward commands.
 _STEP_DURATION = 1000
@@ -57,23 +57,23 @@ _STEP_DURATION = 1000
 _TURN_DURATION = 1800
 #-------------------------------------------------------------------------------
 # Set up the motor GPIO pins
-GPIO.setup(M1, GPIO.OUT)
-GPIO.setup(M2, GPIO.OUT)
-GPIO.setup(M3, GPIO.OUT)
-GPIO.setup(M4, GPIO.OUT)
-GPIO.setup(PWMA, GPIO.OUT)
-GPIO.setup(PWMB, GPIO.OUT)
+GPIO.setup(_RIGHT_MOTOR_1, GPIO.OUT)
+GPIO.setup(_RIGHT_MOTOR_2, GPIO.OUT)
+GPIO.setup(_LEFT_MOTOR_1, GPIO.OUT)
+GPIO.setup(_LEFT_MOTOR_2, GPIO.OUT)
+GPIO.setup(_RIGHT_MOTOR_PWM_SPEED, GPIO.OUT)
+GPIO.setup(_LEFT_MOTOR_PWM_SPEED, GPIO.OUT)
 
-p1 = GPIO.PWM(PWMA, 5000)
-p2 = GPIO.PWM(PWMB, 5000)
+p1 = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, 5000)
+p2 = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, 5000)
 p1.start(50)
 p2.start(50)
 
 # Initially "Turn off" all motors
-GPIO.output(M1, False)
-GPIO.output(M2, False)
-GPIO.output(M3, False)
-GPIO.output(M4, False)
+GPIO.output(_RIGHT_MOTOR_1, False)
+GPIO.output(_RIGHT_MOTOR_2, False)
+GPIO.output(_LEFT_MOTOR_1, False)
+GPIO.output(_LEFT_MOTOR_2, False)
 
 #### Objects ####
 
@@ -94,73 +94,73 @@ class MotorControl(object):
     # Move FORWARD 
     def forward(self):
         #print("Forward")
-        GPIO.output(M1, True)
-        GPIO.output(M2, False)
-        GPIO.output(M3, False)
-        GPIO.output(M4, True)
+        GPIO.output(_RIGHT_MOTOR_1, True)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_2, True)
         
         '''
         time.sleep (_STEP_DURATION/1000)
         
-        GPIO.output(M1, False)
-        GPIO.output(M4, False)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_2, False)
 	'''
             
 #-------------------------------------------------------------------------------
     # Move BACKWARD 
     def backward(self):
         #print("Backward")
-        GPIO.output(M1, False)
-        GPIO.output(M2, True)
-        GPIO.output(M3, True)
-        GPIO.output(M4, False)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_RIGHT_MOTOR_2, True)
+        GPIO.output(_LEFT_MOTOR_1, True)
+        GPIO.output(_LEFT_MOTOR_2, False)
 
         '''
         time.sleep (_STEP_DURATION/1000)
         
-        GPIO.output(M2, False)
-        GPIO.output(M3, False)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
 	'''
 
 #-------------------------------------------------------------------------------
     # Move RIGHT 
     def right(self):
         #print("right")
-        GPIO.output(M1, True)
-        GPIO.output(M2, False)
-        GPIO.output(M3, True)
-        GPIO.output(M4, False) 
+        GPIO.output(_RIGHT_MOTOR_1, True)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, True)
+        GPIO.output(_LEFT_MOTOR_2, False) 
         
         '''
         time.sleep (_TURN_DURATION/1000)
         
-        GPIO.output(M1, False)
-        GPIO.output(M3, False)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
 	'''
 
 #-------------------------------------------------------------------------------
     # Move LEFT 
     def left(self):
         #print("Left")
-        GPIO.output(M1, False)
-        GPIO.output(M2, True)
-        GPIO.output(M3, False)
-        GPIO.output(M4, True)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_RIGHT_MOTOR_2, True)
+        GPIO.output(_LEFT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_2, True)
        
         '''
         time.sleep (_TURN_DURATION/1000)
         
-        GPIO.output(M2, False)
-        GPIO.output(M3, False)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
         '''
 
 #-------------------------------------------------------------------------------           
     # STOP all the motors
     def stop(self):
-        GPIO.output(M1, False)
-        GPIO.output(M2, False)
-        GPIO.output(M3, False)
-        GPIO.output(M4, False)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_2, False)
 
 #-------------------------------------------------------------------------------
     # Properly clean up GPIO
