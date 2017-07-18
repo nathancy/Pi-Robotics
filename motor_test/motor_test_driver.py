@@ -10,10 +10,11 @@ try:
     while True:
         
         print('''
-        Move forward - f
-        Move backward - b
-        Move right - r
-        Move left - l
+        Move forward    f
+        Move backward   b
+        Move right      r
+        Move left       l
+        Quit            q
             ''')
         command = str(input("Enter command: ")).lower()
 
