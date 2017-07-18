@@ -54,23 +54,29 @@ class ServoControl(object):
     # "Look" left
     def panleft(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" right
     def panright(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_RIGHT)
+        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # Position pan servo in the middle
     def pancenter(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" up
     def tiltup(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_UP)
+        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # "Look" down
     def tiltdown(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_DOWN)
+        time.sleep(1)
 #-------------------------------------------------------------------------------        
     # Position tilt servo in the middle
     def tiltcenter(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
+        time.sleep(1)
