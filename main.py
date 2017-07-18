@@ -9,19 +9,19 @@ import time
 def findWay():
     distanceArray = []
 
-    #pan left
+    # Pan left
     servo.panleft()
     time.sleep(1)
     distanceArray.append(ultrasonic.distance(1))
     aux.writetofile('Pan Left Distace', distanceArray[0])
 	
-    #pan center
+    # Pan center
     servo.pancenter()
     time.sleep(1)
     distanceArray.append(ultrasonic.distance(1))
     aux.writetofile('Pan Center Distace', distanceArray[1])
 	
-    #pan right
+    # Pan right
     servo.panright()
     time.sleep(1)
     distanceArray.append(ultrasonic.distance(1))
@@ -47,26 +47,26 @@ def move():
         motor.forward()
         print("moving forward")
     print("stopping")
-    motor.allStop()
+    motor.stop()
     time.sleep(0.5)
     while ultrasonic.distance(1)<10:
         print("moving backward")
         motor.backward()	
-    motor.allStop()
+    motor.stop()
     print("resetting position")
 #-------------------------------------------------------------------------------
 
-#instantiate objects
+# Instantiate objects
 motor = motorControl.MotorControl()
 servo = servoControl.ServoControl()
 ultrasonic = ultrasonicControl.UltrasonicControl()
 aux = auxiliary.AuxiliaryHelp()
 
-#center servos
+# Center servos
 servo.pancenter()
 servo.tiltcenter()
 
-#start logging data
+# Start logging data
 aux.writetofile('Servos are dead center', 0)
 
 try:
