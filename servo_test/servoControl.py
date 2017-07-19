@@ -3,11 +3,10 @@
 
 #-------------------------------------------------------------------------------
 #### Imports ####
-# Download this file from github: https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/blob/master/Adafruit_PWM_Servo_Driver/Adafruit_PWM_Servo_Driver.py
 
 import time
 import sys
-sys.path.append("/home/cyber/Cyber/Pi-Blockchain/libraries")
+#sys.path.append("/home/cyber/Cyber/Pi-Blockchain/libraries")
 
 from Adafruit_PWM_Servo_Driver import PWM
 
@@ -22,16 +21,16 @@ pwm = PWM(0x40)
 pwm.setPWMFreq(60)
 
 # These values cannot be smaller than 104 and more than 521; otherwise your servos may be damaged. Use at your own risk!
-_PAN_SERVO_CHANNEL=0
-_TILT_SERVO_CHANNEL=1
+_PAN_SERVO_CHANNEL = 0
+_TILT_SERVO_CHANNEL = 1
 
-_PAN_SERVO_LEFT=200
-_PAN_SERVO_RIGHT=520
-_PAN_SERVO_CENTER=225
+_PAN_SERVO_LEFT = 375
+_PAN_SERVO_RIGHT = 625
+_PAN_SERVO_CENTER = 500
 
-_TILT_SERVO_UP=200
-_TILT_SERVO_DOWN=520
-_TILT_SERVO_CENTER=225
+_TILT_SERVO_UP = 450
+_TILT_SERVO_DOWN = 300
+_TILT_SERVO_CENTER = 375
 
 #### Objects ####
 
@@ -49,26 +48,61 @@ class ServoControl(object):
         self._instances.append(self)
 
 #-------------------------------------------------------------------------------        
-    # "Look" left
-    def panleft(self):
+    # Move left
+    def panLeft(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+
 #-------------------------------------------------------------------------------        
-    # "Look" right
-    def panright(self):
+    # Move left with exact degree
+    def panExactLeft(self, degree):
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, degree)
+
+#-------------------------------------------------------------------------------        
+    # Move right
+    def panRight(self):
         pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_RIGHT)
+
+#-------------------------------------------------------------------------------        
+    # Move right with exact degree
+    def panExactRight(self, degree):
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, degree)
+    
 #-------------------------------------------------------------------------------        
     # Position pan servo in the middle
-    def pancenter(self):
-        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_LEFT)
+    def panCenter(self):
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_CENTER)
+
 #-------------------------------------------------------------------------------        
-    # "Look" up
-    def tiltup(self):
+    # Position pan servo exactly
+    def panExactCenter(self, degree):
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, degree)
+
+#-------------------------------------------------------------------------------        
+    # Look up
+    def tiltUp(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_UP)
+
 #-------------------------------------------------------------------------------        
-    # "Look" down
-    def tiltdown(self):
+    # Look up at exact angle
+    def tiltExactUp(self, degree):
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, degree)
+
+#-------------------------------------------------------------------------------        
+    # Look down
+    def tiltDown(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_DOWN)
+
+#-------------------------------------------------------------------------------        
+    # Look down at exact angle
+    def tiltExactDown(self, degree):
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, degree)
+
 #-------------------------------------------------------------------------------        
     # Position tilt servo in the middle
-    def tiltcenter(self):
+    def tiltCenter(self):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
+
+#-------------------------------------------------------------------------------        
+    # Position tilt servo exactly 
+    def tiltExactCenter(self, degree):
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, degree)
