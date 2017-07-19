@@ -5,8 +5,11 @@ from time import sleep
 
 # Instantiate object
 servo = servoControl.ServoControl()
+
+# Minimum and maximum allowable servo range
 _MIN = 100
 _MAX = 700
+
 # Verify degrees are valid and within bounds
 def degreeVerify():
     flag = 'Invalid'
@@ -27,6 +30,7 @@ try:
     servo.panCenter()
     servo.tiltCenter()
     
+    # Ensure valid mode selection
     mode = input('''
     default servo mode - 1
     exact servo mode   - 2 
@@ -142,3 +146,4 @@ try:
 
 except KeyboardInterrupt:
     exit(1)
+
