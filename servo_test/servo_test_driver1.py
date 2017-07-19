@@ -5,58 +5,140 @@ from time import sleep
 
 # Instantiate object
 servo = servoControl.ServoControl()
+_MIN = 100
+_MAX = 700
+# Verify degrees are valid and within bounds
+def degreeVerify():
+    flag = 'Invalid'
+    while flag == 'Invalid': 
+        degree = input("Degree: ")
+        if degree.isnumeric():
+            degree = int(degree)
+            if degree > _MIN and degree < _MAX:
+                return degree
+            else:
+                print("Invalid. Degree out of range") 
+        else:
+            print("Invalid. Not numeric input") 
 
 try:
 
-    # Center servos
-    servo.pancenter()
-    servo.tiltcenter()
+    # Initially center servos
+    servo.panCenter()
+    servo.tiltCenter()
     
-    while True:
-        print('''
-        Look left       l
-        Look right      r 
-        Look center     c
-        Tilt up         tu
-        Tilt down       td
-        Tilt center     tc
-        Quit            q
-            ''')
-        command = str(input("Enter command: ")).lower()
+    mode = input('''
+    default servo mode - 1
+    exact servo mode   - 2 
+    
+    ''')
+    if mode.isnumeric():
+        mode = int(mode)
+    while mode != 1 and mode != 2:
+        mode = input('''
+        default servo mode - 1
+        exact servo mode   - 2 
+        
+        ''')
+        if mode.isnumeric():
+            mode = int(mode)
+    
+    # Default servo mode
+    if mode == 1:
+        print('-' * 60)
+        print("Default servo mode")
+        print('-' * 60)
+        while True:
+            print('''
+            Look left       l
+            Look right      r 
+            Look center     c
+            Tilt up         tu
+            Tilt down       td
+            Tilt center     tc
+            Mode            m
+            Reset           re
+            Quit            q
+                ''')
+            command = str(input("Enter command: ")).lower()
 
-        if command == 'l':
-            for num in range(10):
+            if command == 'l':
                 print("Left")
-                servo.panleft()
-                sleep(.25)
-        elif command == 'r':
-            for num in range(10):
+                servo.panLeft()
+            elif command == 'r':
                 print("Right")
-                servo.panright()
-                sleep(.25)
-        elif command == 'c':
-            for num in range(10):
+                servo.panRight()
+            elif command == 'c':
                 print("Center")
-                servo.pancenter()
-                sleep(.25)
-        elif command == 'tu':
-            for num in range(10):
+                servo.panCenter()
+            elif command == 'tu':
                 print("Tilt up")
-                servo.tiltup()
-                sleep(.25)
-        elif command == 'td':
-            for num in range(10):
+                servo.tiltUp()
+            elif command == 'td':
                 print("Tilt down")
-                servo.tiltdown()
-                sleep(.25)
-        elif command == 'tc':
-            for num in range(10):
+                servo.tiltDown()
+            elif command == 'tc':
                 print("Tilt center")
-                servo.tiltcenter()
-                sleep(.25)
-        elif command == 'q':
-            print("Quit")
-            exit(1)
+                servo.tiltCenter()
+            elif command == 're':
+                print("Reset")
+                servo.tiltCenter()
+                servo.panCenter()
+            elif command =='m':
+                print('-' * 60)
+                print("Default servo mode")
+                print('-' * 60)
+            elif command == 'q':
+                print("Quit")
+                exit(1)
+    # Exact servo mode
+    else:
+        print('-' * 60)
+        print("Exact servo mode")
+        print('-' * 60)
+        while True:
+            print('''
+            Look left       l
+            Look right      r 
+            Look center     c
+            Tilt up         tu
+            Tilt down       td
+            Tilt center     tc
+            Mode            m
+            Reset           re
+            Quit            q
+                ''')
+            command = str(input("Enter command: ")).lower()
+
+            if command == 'l':
+                print("Left")
+                servo.panExactLeft(degreeVerify())
+            elif command == 'r':
+                print("Right")
+                servo.panExactRight(degreeVerify())
+            elif command == 'c':
+                print("Center")
+                servo.panExactCenter(degreeVerify())
+            elif command == 'tu':
+                print("Tilt up")
+                servo.tiltExactUp(degreeVerify())
+            elif command == 'td':
+                print("Tilt down")
+                servo.tiltExactDown(degreeVerify())
+            elif command == 'tc':
+                print("Tilt center")
+                servo.tiltExactCenter(degreeVerify())
+            elif command == 're':
+                print("Reset")
+                servo.panCenter()
+                servo.tiltCenter()
+            elif command =='m':
+                print('-' * 60)
+                print("Exact servo mode")
+                print('-' * 60)
+            elif command == 'q':
+                print("Quit")
+                exit(1)
 
 except KeyboardInterrupt:
     exit(1)
