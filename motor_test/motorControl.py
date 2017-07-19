@@ -22,6 +22,12 @@ Left motor:  M3        --> _LEFT_MOTOR_1
              M4        --> _LEFT_MOTOR_2
              PWMB      --> _LEFT_MOTOR_PWM_SPEED
 
+The orientation of the driver board taken from the data sheet 
+
+   Left motor              Right motor
+
+M3           M4          M1           M2        
+
 '''
 #-------------------------------------------------------------------------------
 #### Imports ####
