@@ -6,7 +6,6 @@
 
 import time
 import sys
-#sys.path.append("/home/cyber/Cyber/Pi-Blockchain/libraries")
 
 from Adafruit_PWM_Servo_Driver import PWM
 
@@ -20,7 +19,7 @@ pwm = PWM(0x40)
 # Servo frequency 60Hz
 pwm.setPWMFreq(60)
 
-# These values cannot be smaller than 104 and more than 521; otherwise your servos may be damaged. Use at your own risk!
+# These values cannot be smaller than 100 and more than 700.  
 _PAN_SERVO_CHANNEL = 0
 _TILT_SERVO_CHANNEL = 1
 
@@ -106,3 +105,4 @@ class ServoControl(object):
     # Position tilt servo exactly 
     def tiltExactCenter(self, degree):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, degree)
+
