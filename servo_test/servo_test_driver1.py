@@ -93,6 +93,8 @@ try:
                 print("Default servo mode")
                 print('-' * 60)
             elif command == 'q':
+                # Reset servo to center
+                servo.resetServo()
                 print("Quit")
                 exit(1)
     # Exact servo mode
@@ -141,9 +143,14 @@ try:
                 print("Exact servo mode")
                 print('-' * 60)
             elif command == 'q':
+                # Reset servo to center
+                servo.resetServo()
                 print("Quit")
                 exit(1)
 
 except KeyboardInterrupt:
+    # Reset servo to center 
+    servo.resetServo()
+    print("Quit")
     exit(1)
 

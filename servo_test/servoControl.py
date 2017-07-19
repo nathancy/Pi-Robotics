@@ -106,3 +106,9 @@ class ServoControl(object):
     def tiltExactCenter(self, degree):
         pwm.setPWM(_TILT_SERVO_CHANNEL, 0, degree)
 
+#-------------------------------------------------------------------------------        
+    # Reset servo orientation
+    def resetServo(self):
+        pwm.setPWM(_PAN_SERVO_CHANNEL, 0, _PAN_SERVO_CENTER)
+        pwm.setPWM(_TILT_SERVO_CHANNEL, 0, _TILT_SERVO_CENTER)
+
