@@ -33,9 +33,16 @@ def set_servo_pulse(channel, pulse):
 pwm.set_pwm_freq(60)
 
 print('Moving servo on channel 0, press Ctrl-C to quit...')
-while True:
-    # Move servo on channel O between extremes.
-    pwm.set_pwm(0, 0, servo_min)
-    time.sleep(1)
-    pwm.set_pwm(0, 0, servo_max)
-    time.sleep(1)
+try: 
+    while True:
+        # Move servo on channel O between extremes.
+        pwm.set_pwm(0, 0, servo_min)
+        time.sleep(1)
+        pwm.set_pwm(0, 0, servo_max)
+        time.sleep(1)
+except KeyboardInterrupt:
+    # Reset servo to center
+    pwm.set_pwm(0, 0, 500)
+    pwm.set_pwm(1, 0, 375)
+    exit(1)
+
