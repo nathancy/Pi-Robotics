@@ -1,6 +1,6 @@
 # Controlling a robot with two motors that can avoid obstacles by using a ultrasonic mounted on pan/tilt servos
 
-import motorControl, servoControl, ultrasonicControl, auxiliary
+import motorControl, servoControl, ultrasonicControl, auxiliary, LIDARcontrol
 import time
 
 #-------------------------------------------------------------------------------
@@ -9,32 +9,38 @@ import time
 
 def findDirection():
     distanceArray = [0,0,0]
+
+    for num in range(10):
+        print(lidar.distance())
     
     # Previous was right, move left 
     if PAST_DIRECTION == RIGHT:
 
         # Pan left
         servo.panLeft()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("left distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[0] = distance
+        print("left distance: ", distance)
 #        aux.writetofile('Pan Left Distace', distanceArray[0])
 
         # Pan center
         servo.panCenter()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("center distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[1] = distance
+        print("center distance: ", distance)
 #        aux.writetofile('Pan Center Distace', distanceArray[1])
             
         # Pan right
         servo.panRight()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("right distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[2] = distance
+        print("right distance: ", distance)
 #        aux.writetofile('Pan Right Distace', distanceArray[2])
 
         global PAST_DIRECTION
@@ -47,26 +53,29 @@ def findDirection():
 
         # Pan right
         servo.panRight()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("right distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[2] = distance
+        print("right distance: ", distance)
 #        aux.writetofile('Pan Right Distace', distanceArray[2])
 
         # Pan center
         servo.panCenter()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("center distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[1] = distance
+        print("center distance: ", distance)
 #        aux.writetofile('Pan Center Distace', distanceArray[1])
             
         # Pan left
         servo.panLeft()
-        time.sleep(.5)
-        distance = ultrasonic.distance(1)
-        distanceArray.append(distance)
-#        print("left distance: ", distance)
+        time.sleep(.75)
+#        distance = ultrasonic.distance(1)
+        distance = lidar.distance()
+        distanceArray[0] = distance
+        print("left distance: ", distance)
 #        aux.writetofile('Pan Left Distace', distanceArray[0])
 
         global PAST_DIRECTION
@@ -92,6 +101,8 @@ def findDirection():
     else:
         aux.writetofile('Not Turning', distanceArray[maxindex])
 
+    print(distanceArray)
+
     del distanceArray[:]
   	
 #------------------------------------------------------------------------------- 
@@ -116,6 +127,7 @@ def move():
 motor = motorControl.MotorControl()
 servo = servoControl.ServoControl()
 ultrasonic = ultrasonicControl.UltrasonicControl()
+lidar = LIDARcontrol.LIDARControl()
 aux = auxiliary.AuxiliaryHelp()
 
 LEFT = 0
