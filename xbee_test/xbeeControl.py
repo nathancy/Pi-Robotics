@@ -13,11 +13,11 @@ from serial import Serial
 
 #-------------------------------------------------------------------------------
 
-PORT = 'dev/ttyUSB0'
+PORT = '/dev/ttyUSB0'
 BAUD_RATE = 9600
 
 # Open serial port
-ser = Serial(PORT, BAUD, timeout=1)
+ser = Serial(PORT, BAUD_RATE, timeout = 1)
 
 # Create API object 
 xbee = ZigBee(ser, escaped=True)
@@ -40,7 +40,7 @@ class XbeeControl(object):
     # Close serial port
     def cleanup(self):
         ser.close()
-
+    
 #-------------------------------------------------------------------------------        
     # Send packets
     def send(self, packet_data, mode):
@@ -62,4 +62,18 @@ class XbeeControl(object):
         else:
             print("ERROR: Invalid XBee configuration mode. Set 'C' for Coordinator or 'R' for Router XBee.")
             exit(1)
-
+    
+    # Receive packets
+    def receive(self):
+        '''
+        Parameter             Description               
+        --------------------------------------------------------------
+        id                    Frame Type                
+        source_addr           16 bit source addr   
+        source_addr_long      64 bit source addr   
+        rf_data               RF data in packet         
+        '''
+        frame = xbee.wait_read_frame()
+        clean_data = frame['rf_data'].decode("utf-8")
+        return clean_data
+        

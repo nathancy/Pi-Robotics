@@ -17,8 +17,14 @@ xbee = ZigBee(ser, escaped=True)
 # Continuously read and print packets
 while True:
     try:
-        data = xbee.wait_read_frame()
-        print(data)
+        frame = xbee.wait_read_frame()
+        clean_data = frame['rf_data'].decode("utf-8")
+        print(clean_data)
+        '''
+        print(frame['id'])
+        print(frame['source_addr'])
+        print(frame['source_addr_long'])
+        '''   
     except KeyboardInterrupt:
         break
 ser.close()
