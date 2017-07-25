@@ -1,3 +1,5 @@
+# This example continuously sends packets to a remote XBee. 
+
 from xbee import ZigBee
 from serial import Serial
 from time import sleep
@@ -11,9 +13,6 @@ ser = Serial(PORT, BAUD, timeout=1)
 # Create API object 
 xbee = ZigBee(ser, escaped=True)
 
-#destination = u'\x00\x13\xA2\x00\x41\x55\xB9\xC7'
-#destination.encode('utf-8')
-
 # Continuously send and print status packets
 while True:
     try:
@@ -22,7 +21,8 @@ while True:
 
         # C --> R
         #xbee.send('tx', dest_addr_long='\x00\x13\xA2\x00\x41\x55\xB9\xC7', data='from coord')
-        
+
+        # Print status 
         data = xbee.wait_read_frame()
 
         print(data)
