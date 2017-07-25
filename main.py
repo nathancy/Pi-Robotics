@@ -4,21 +4,20 @@ import motorControl, servoControl, ultrasonicControl, auxiliary, LIDARcontrol
 import time
 
 #-------------------------------------------------------------------------------
-# Setting direction (finding the longest way without obstacles
+# Setting direction (finding the longest way without obstacles)
 
+_MOTOR_DELAY = 0.15
+_SERVO_DELAY = 0.2
 
 def findDirection():
     distanceArray = [0,0,0]
 
-    for num in range(10):
-        print(lidar.distance())
-    
     # Previous was right, move left 
     if PAST_DIRECTION == RIGHT:
 
         # Pan left
         servo.panLeft()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[0] = distance
@@ -27,7 +26,7 @@ def findDirection():
 
         # Pan center
         servo.panCenter()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[1] = distance
@@ -36,7 +35,7 @@ def findDirection():
             
         # Pan right
         servo.panRight()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[2] = distance
@@ -53,7 +52,7 @@ def findDirection():
 
         # Pan right
         servo.panRight()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[2] = distance
@@ -62,7 +61,7 @@ def findDirection():
 
         # Pan center
         servo.panCenter()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[1] = distance
@@ -71,7 +70,7 @@ def findDirection():
             
         # Pan left
         servo.panLeft()
-        time.sleep(.75)
+        time.sleep(_SERVO_DELAY)
 #        distance = ultrasonic.distance(1)
         distance = lidar.distance()
         distanceArray[0] = distance
@@ -93,10 +92,12 @@ def findDirection():
     maxindex   2   right
     '''
     if maxindex == 0:
-        motor.left()
+        #motor.left()
+        time.sleep(_MOTOR_DELAY)
         aux.writetofile('Turning Left', distanceArray[maxindex])
     elif maxindex == 2:
-        motor.right()
+        #motor.right()
+        time.sleep(0.27)
         aux.writetofile('Turning Right', distanceArray[maxindex])
     else:
         aux.writetofile('Not Turning', distanceArray[maxindex])
@@ -107,19 +108,23 @@ def findDirection():
   	
 #------------------------------------------------------------------------------- 
 def move():
-    while ultrasonic.distance(1) >= 10.0:
+    while ultrasonic.distance(1) >= 30.0:
         motor.forward()
-        time.sleep(.25)
+        time.sleep(_MOTOR_DELAY)
         print(ultrasonic.distance(1))
         print("moving forward")
     print("stopping")
     motor.stop()
-    time.sleep(0.5)
-    while ultrasonic.distance(1) < 10.0:
+    time.sleep(_MOTOR_DELAY)
+
+    # Add when have ultrasonic back sensor
+    '''
+    while ultrasonic.distance(1) < 30.0:
         print("moving backward")
         motor.backward()	
-        time.sleep(.25)
+        time.sleep(_MOTOR_DELAY)
     motor.stop()
+    '''
     print("resetting position")
 #-------------------------------------------------------------------------------
 
@@ -146,7 +151,8 @@ aux.writetofile('Servos are dead center', 0)
 try:
     while True: 
         findDirection()
-        move()
+        time.sleep(1)
+        #move()
           
 except KeyboardInterrupt:
     servo.resetServo()
