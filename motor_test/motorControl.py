@@ -59,6 +59,9 @@ _LEFT_MOTOR_PWM_SPEED = 32
 # Step duration is used for forward and backward commands.
 _STEP_DURATION = 1000
 
+# Controls motor strength
+_MOTOR_SPEED = 400
+
 # Turn duration in milliseconds.
 _TURN_DURATION = 1800
 #-------------------------------------------------------------------------------
@@ -70,8 +73,8 @@ GPIO.setup(_LEFT_MOTOR_2, GPIO.OUT)
 GPIO.setup(_RIGHT_MOTOR_PWM_SPEED, GPIO.OUT)
 GPIO.setup(_LEFT_MOTOR_PWM_SPEED, GPIO.OUT)
 
-p1 = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, 5000)
-p2 = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, 5000)
+p1 = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
+p2 = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
 p1.start(50)
 p2.start(50)
 
@@ -100,10 +103,10 @@ class MotorControl(object):
     # Move FORWARD 
     def forward(self):
         #print("Forward")
-        GPIO.output(_RIGHT_MOTOR_1, True)
-        GPIO.output(_RIGHT_MOTOR_2, False)
-        GPIO.output(_LEFT_MOTOR_1, False)
-        GPIO.output(_LEFT_MOTOR_2, True)
+        GPIO.output(_RIGHT_MOTOR_1, False)
+        GPIO.output(_RIGHT_MOTOR_2, True)
+        GPIO.output(_LEFT_MOTOR_1, True)
+        GPIO.output(_LEFT_MOTOR_2, False)
         
         '''
         time.sleep (_STEP_DURATION/1000)
@@ -116,10 +119,10 @@ class MotorControl(object):
     # Move BACKWARD 
     def backward(self):
         #print("Backward")
-        GPIO.output(_RIGHT_MOTOR_1, False)
-        GPIO.output(_RIGHT_MOTOR_2, True)
-        GPIO.output(_LEFT_MOTOR_1, True)
-        GPIO.output(_LEFT_MOTOR_2, False)
+        GPIO.output(_RIGHT_MOTOR_1, True)
+        GPIO.output(_RIGHT_MOTOR_2, False)
+        GPIO.output(_LEFT_MOTOR_1, False)
+        GPIO.output(_LEFT_MOTOR_2, True)
 
         '''
         time.sleep (_STEP_DURATION/1000)

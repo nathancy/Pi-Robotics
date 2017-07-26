@@ -6,41 +6,43 @@ from time import sleep
 # Instantiate object
 motor = motorControl.MotorControl()
 
+duration = 1
+delay = .15
 try:
     while True:
         
         print('''
-        Move forward    f
-        Move backward   b
-        Move right      r
-        Move left       l
+        Move forward    w
+        Move backward   s
+        Move left       a
+        Move right      d
         Quit            q
             ''')
         command = str(input("Enter command: ")).lower()
 
-        if command == 'r':
-            for num in range(10):
+        if command == 'd':
+            for num in range(duration):
                 print("Right")
                 motor.right()
-                sleep(.25)
+                sleep(.15)
             motor.stop()
-        elif command == 'l':
-            for num in range(10):
+        elif command == 'a':
+            for num in range(duration):
                 print("Left")
                 motor.left()
-                sleep(.25)
+                sleep(.15)
             motor.stop()
-        elif command == 'f':
-            for num in range(10):
+        elif command == 'w':
+            for num in range(duration):
                 print("Forward")
                 motor.forward()
-                sleep(.25)
+                sleep(.15)
             motor.stop()
-        elif command == 'b':
-            for num in range(10):
+        elif command == 's':
+            for num in range(duration):
                 print("Backward")
                 motor.backward()
-                sleep(.25)
+                sleep(.15)
             motor.stop()
         elif command == 'q':
             print("Quit")

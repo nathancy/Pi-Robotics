@@ -7,8 +7,8 @@ from time import sleep
 servo = servoControl.ServoControl()
 
 # Minimum and maximum allowable servo range
-_MIN = 100
-_MAX = 700
+_MIN = 50
+_MAX = 900
 
 # Verify degrees are valid and within bounds
 def degreeVerify():
