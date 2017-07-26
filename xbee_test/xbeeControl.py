@@ -58,7 +58,7 @@ class XbeeControl(object):
             xbee.send('tx', dest_addr_long = '\x00\x00\x00\x00\x00\x00\x00\x00', data = packet_data)
         # Coordinator --> Router (Coordinator is running this program)
         elif mode == 'C':
-            xbee.send('tx', dest_addr_long = '\x00\x13\xA2\x00\x41\x55\xB9\xC7', data = packet_data)
+            xbee.send('tx', data = packet_data)
         else:
             print("ERROR: Invalid XBee configuration mode. Set 'C' for Coordinator or 'R' for Router XBee.")
             exit(1)

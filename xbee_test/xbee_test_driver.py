@@ -14,7 +14,8 @@ try:
     # Send packets
     if mode.lower() == 's':
         while True:
-            xbee.send("hello from the router", 'R')
+            #xbee.send("hello from the router", 'R')
+            xbee.send("hello from the coord", 'C')
             sleep(1)
     # Receive Packets
     elif mode.lower() == 'r':

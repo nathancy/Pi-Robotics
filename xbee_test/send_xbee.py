@@ -17,10 +17,10 @@ xbee = ZigBee(ser, escaped=True)
 while True:
     try:
         # R --> C
-        xbee.send('tx', dest_addr_long = '\x00\x00\x00\x00\x00\x00\x00\x00', data='from router')
+        #xbee.send('tx', dest_addr_long = '\x00\x00\x00\x00\x00\x00\x00\x00', data='from router')
 
         # C --> R
-        #xbee.send('tx', dest_addr_long='\x00\x13\xA2\x00\x41\x55\xB9\xC7', data='from coord')
+        xbee.send('tx', data='from coord')
 
         # Print status 
         data = xbee.wait_read_frame()
