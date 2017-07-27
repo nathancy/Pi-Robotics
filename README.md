@@ -1,12 +1,14 @@
 # Pi-Blockchain
 
-Python code used to run an autonomous robot built using Arduino, Raspberry Pi, and LIDAR, and blockchain technology. The robot initially turns the LIDAR to the left, right, and center to calibrate by taking 5 readings, removes outliers and returns a median value. It then moves in the direction of the farthest distance. THe robot takes readings while in motion. If it encounters an obstacle, it stops and calibrates again to determine the next direction. 
+Python code used to run an autonomous robot built using Arduino, Raspberry Pi, servos, motors, ultrasonic sensors, LIDAR sensors, XBee, and blockchain technology. The robot initially turns the LIDAR to the left, right, and center to determine the longest direction through multiple readings, removes outliers, and returns a median value. It then moves in the direction of the farthest distance. THe robot takes readings while in motion for collision checking. If it encounters an obstacle, it stops and calibrates again to determine and move in the next direction. 
 
 This repository contains several modules:
 * LIDAR_test - LIDAR sensor test module
 * motor_test - Motor test module
 * servo_test - Servo test module
 * ultrasonic_test - Ultrasonic sensor test module
+* xbee_test - XBee test module
+* demos/ - Test demos for autonomous cars
 
 Run with program with:
 ```
@@ -17,4 +19,5 @@ python main.py
 - `motorControl.py` - Module for motor control.
 - `servoControl.py` - Module for servo control.
 - `ultrasonicControl.py` - Module for reading ultrasonic sensor data on Raspberry Pi.
+- `xbeeControl.py` - Module for wireless communication on Raspberry Pi.
 - `auxiliary.py` - Auxiliary functions such as releasing GPIO pins data logging.
