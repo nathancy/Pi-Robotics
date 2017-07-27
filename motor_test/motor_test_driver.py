@@ -24,25 +24,25 @@ try:
             for num in range(duration):
                 print("Right")
                 motor.right()
-                sleep(.15)
+                sleep(delay)
             motor.stop()
         elif command == 'a':
             for num in range(duration):
                 print("Left")
                 motor.left()
-                sleep(.15)
+                sleep(delay)
             motor.stop()
         elif command == 'w':
             for num in range(duration):
                 print("Forward")
                 motor.forward()
-                sleep(.15)
+                sleep(delay)
             motor.stop()
         elif command == 's':
             for num in range(duration):
                 print("Backward")
                 motor.backward()
-                sleep(.15)
+                sleep(delay)
             motor.stop()
         elif command == 'q':
             print("Quit")
