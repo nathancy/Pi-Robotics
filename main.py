@@ -6,8 +6,10 @@ import time
 #-------------------------------------------------------------------------------
 # Setting direction (finding the longest way without obstacles)
 
-_MOTOR_DELAY = 0.15
+_MOTOR_DELAY = 0.05
 _SERVO_DELAY = 0.2
+_TURN_DELAY = 0.15
+
 
 def findDirection():
     distanceArray = [0,0,0]
@@ -92,12 +94,14 @@ def findDirection():
     maxindex   2   right
     '''
     if maxindex == 0:
-        #motor.left()
-        time.sleep(_MOTOR_DELAY)
+        motor.left()
+        time.sleep(_TURN_DELAY)
+        motor.stop()
         aux.writetofile('Turning Left', distanceArray[maxindex])
     elif maxindex == 2:
-        #motor.right()
-        time.sleep(0.27)
+        motor.right()
+        time.sleep(_TURN_DELAY)
+        motor.stop()
         aux.writetofile('Turning Right', distanceArray[maxindex])
     else:
         aux.writetofile('Not Turning', distanceArray[maxindex])
@@ -108,23 +112,39 @@ def findDirection():
   	
 #------------------------------------------------------------------------------- 
 def move():
-    while ultrasonic.distance(1) >= 30.0:
+    data_points = []
+    initial = ultrasonic.distance(1)
+    count = 0
+    
+    ultrasonic_distance = ultrasonic.distance(1)
+    while ultrasonic_distance >= 30.0 and ultrasonic_distance <= 3000.0:
         motor.forward()
         time.sleep(_MOTOR_DELAY)
+       
+        if count < 5:
+            data_points.append(ultrasonic.distance(1))
+            count += 1
+        else:
+            avg_data = (data_points[0]+data_points[1] + data_points[2] + data_points[3] + data_points[4])/5
+            print("data points are", data_points)
+            if (initial > (avg_data - 5.00)) and (initial < (avg_data + 5.00)):
+                break;
+
         print(ultrasonic.distance(1))
-        print("moving forward")
+        #print("moving forward")
+        ultrasonic_distance = ultrasonic.distance(1)
     print("stopping")
     motor.stop()
     time.sleep(_MOTOR_DELAY)
 
     # Add when have ultrasonic back sensor
-    '''
-    while ultrasonic.distance(1) < 30.0:
+    ultrasonic_distance = ultrasonic.distance(1)
+    while ultrasonic_distance < 30.0 or ultrasonic_distance >= 3000.0:
         print("moving backward")
         motor.backward()	
         time.sleep(_MOTOR_DELAY)
+        ultrasonic_distance = ultrasonic.distance(1)
     motor.stop()
-    '''
     print("resetting position")
 #-------------------------------------------------------------------------------
 
@@ -140,6 +160,7 @@ CENTER = 1
 RIGHT = 2
 
 # Initially search left 
+global PAST_DIRECTION 
 PAST_DIRECTION = 0
 
 # Center servos
@@ -151,8 +172,7 @@ aux.writetofile('Servos are dead center', 0)
 try:
     while True: 
         findDirection()
-        time.sleep(1)
-        #move()
+        move()
           
 except KeyboardInterrupt:
     servo.resetServo()
