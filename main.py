@@ -7,8 +7,15 @@ import time
 # Setting direction (finding the longest way without obstacles)
 
 _MOTOR_DELAY = 0.05
-_SERVO_DELAY = 0.2
+_SERVO_DELAY = 0.25
 _TURN_DELAY = 0.15
+
+def ultrasonic_reading():
+    ultrasonic_distance = ultrasonic.distance(1)
+    while ultrasonic_distance > 500.0:
+        ultrasonic_distance = ultrasonic.distance(1)
+        print("ultrasonic_distance is: ", ultrasonic_distance)
+    return ultrasonic_distance
 
 
 def findDirection():
@@ -20,34 +27,27 @@ def findDirection():
         # Pan left
         servo.panLeft()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[0] = distance
-        print("left distance: ", distance)
+        distanceArray[0] = lidar.distance()
+        print("left distance: ", distanceArray[0])
 #        aux.writetofile('Pan Left Distace', distanceArray[0])
 
         # Pan center
         servo.panCenter()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[1] = distance
-        print("center distance: ", distance)
+        distanceArray[1] = lidar.distance()
+        print("center distance: ", distanceArray[1])
 #        aux.writetofile('Pan Center Distace', distanceArray[1])
             
         # Pan right
         servo.panRight()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[2] = distance
-        print("right distance: ", distance)
+        distanceArray[2] = lidar.distance()
+        print("right distance: ", distanceArray[2])
 #        aux.writetofile('Pan Right Distace', distanceArray[2])
 
         global PAST_DIRECTION
         PAST_DIRECTION = LEFT
         servo.panCenter()
-#        print("Past is", PAST_DIRECTION)
 
     # Previous was left, move right 
     else:
@@ -55,38 +55,30 @@ def findDirection():
         # Pan right
         servo.panRight()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[2] = distance
-        print("right distance: ", distance)
+        distanceArray[2] = lidar.distance()
+        print("right distance: ", distanceArray[2])
 #        aux.writetofile('Pan Right Distace', distanceArray[2])
 
         # Pan center
         servo.panCenter()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[1] = distance
-        print("center distance: ", distance)
+        distanceArray[1] = lidar.distance()
+        print("center distance: ", distanceArray[1])
 #        aux.writetofile('Pan Center Distace', distanceArray[1])
             
         # Pan left
         servo.panLeft()
         time.sleep(_SERVO_DELAY)
-#        distance = ultrasonic.distance(1)
-        distance = lidar.distance()
-        distanceArray[0] = distance
-        print("left distance: ", distance)
+        distanceArray[0] = lidar.distance()
+        print("left distance: ", distanceArray[0])
 #        aux.writetofile('Pan Left Distace', distanceArray[0])
 
         global PAST_DIRECTION
         PAST_DIRECTION = RIGHT
         servo.panCenter()
-#        print("Past is", PAST_DIRECTION)
 
     maxdistance = max(distanceArray)
     maxindex = distanceArray.index(maxdistance)
-#    print("maxindex is: ", maxindex)
 
     '''
     maxindex   0   left
@@ -112,39 +104,26 @@ def findDirection():
   	
 #------------------------------------------------------------------------------- 
 def move():
-    data_points = []
-    initial = ultrasonic.distance(1)
-    count = 0
-    
-    ultrasonic_distance = ultrasonic.distance(1)
-    while ultrasonic_distance >= 30.0 and ultrasonic_distance <= 3000.0:
+    ultrasonic_distance = ultrasonic_reading()
+    while ultrasonic_distance >= 20.0 and ultrasonic_distance <= 500.0:
         motor.forward()
         time.sleep(_MOTOR_DELAY)
-       
-        if count < 5:
-            data_points.append(ultrasonic.distance(1))
-            count += 1
-        else:
-            avg_data = (data_points[0]+data_points[1] + data_points[2] + data_points[3] + data_points[4])/5
-            print("data points are", data_points)
-            if (initial > (avg_data - 5.00)) and (initial < (avg_data + 5.00)):
-                break;
-
-        print(ultrasonic.distance(1))
-        #print("moving forward")
-        ultrasonic_distance = ultrasonic.distance(1)
-    print("stopping")
+        print("moving forward")
+        ultrasonic_distance = ultrasonic_reading()
+        print("ultrasonic_distance forward is: ", ultrasonic_distance)
     motor.stop()
     time.sleep(_MOTOR_DELAY)
 
-    # Add when have ultrasonic back sensor
-    ultrasonic_distance = ultrasonic.distance(1)
-    while ultrasonic_distance < 30.0 or ultrasonic_distance >= 3000.0:
-        print("moving backward")
+    ultrasonic_distance = ultrasonic_reading()
+    while ultrasonic_distance < 20.0:
         motor.backward()	
         time.sleep(_MOTOR_DELAY)
-        ultrasonic_distance = ultrasonic.distance(1)
+        print("moving backward")
+        ultrasonic_distance = ultrasonic_reading()
+        print("ultrasonic_distance backward is: ", ultrasonic_distance)
+    
     motor.stop()
+    time.sleep(_MOTOR_DELAY)
     print("resetting position")
 #-------------------------------------------------------------------------------
 
