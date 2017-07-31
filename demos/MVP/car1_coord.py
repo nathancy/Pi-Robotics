@@ -43,7 +43,8 @@ try:
 
         # Send stop signal from Car #1 to Car #2
         xbee.send("1", "C")
-        motor.stop()
+        motor.forward()
+        sleep(3)
         motor.cleanup()
         sys.exit(1)
 
