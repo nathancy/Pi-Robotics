@@ -45,6 +45,7 @@ def ultrasonic_reading():
 # readings. Then uses the motor to shift the robot towards the longest direction.
 def findDirection():
     distanceArray = [0,0,0]
+    global PAST_DIRECTION
 
     # Previous was right, move left 
     if PAST_DIRECTION == RIGHT:
@@ -70,7 +71,6 @@ def findDirection():
         print("right distance: ", distanceArray[2])
 #        aux.writetofile('Pan Right Distace', distanceArray[2])
 
-        global PAST_DIRECTION
         PAST_DIRECTION = LEFT
         servo.panCenter()
 
@@ -98,7 +98,6 @@ def findDirection():
         print("left distance: ", distanceArray[0])
 #        aux.writetofile('Pan Left Distace', distanceArray[0])
 
-        global PAST_DIRECTION
         PAST_DIRECTION = RIGHT
         servo.panCenter()
 
