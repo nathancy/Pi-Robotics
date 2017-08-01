@@ -7,7 +7,7 @@ from time import sleep
 motor = motorControl.MotorControl()
 
 duration = 1
-delay = .15
+delay = 1.5
 try:
     while True:
         

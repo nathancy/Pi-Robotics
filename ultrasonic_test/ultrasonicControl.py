@@ -13,6 +13,7 @@ import RPi.GPIO as GPIO
 #-------------------------------------------------------------------------------
 # GPIO Mode (BOARD/BCM)
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 # Assign GPIO pins to variables
 _ULTRASONIC_TRIG=16

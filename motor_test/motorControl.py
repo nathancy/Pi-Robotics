@@ -40,6 +40,7 @@ import RPi.GPIO as GPIO
 #-------------------------------------------------------------------------------
 # GPIO Mode (BOARD/BCM)
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 # Assign GPIO pins for motors
 # Right motor
