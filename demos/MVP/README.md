@@ -3,15 +3,14 @@
 Set of demos to demonstrate two realistic scenarios.
 
 ```
-Car #1 <- Car #2
+Car #2 -> Car #1
 
 Two cars following each other
 
 Scenario #1: Car #1 is trustworthy
              Car #1 sends stop signal to car #2
-             Car #2 stops
-             Both cars stop
-              
+             Car #1 moves forward, car #2 stops 
+
 Scenario #2: Car #1 is not trustworthy
              Car #1 sends stop signal to car #2
              Car #2 continues on since car #1 is not trusted
