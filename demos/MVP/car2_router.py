@@ -54,17 +54,22 @@ try:
     if(sys.argv[1] == '2'):
         print(sys.argv[1], "Scenario #2 Router Car")
         motor.backward()
-        sleep(delay)
-
+        sleep(4)
+        motor.stop()
+        motor.cleanup()
+        sys.exit(1)
+    
+        ''' 
         # Receive stop signal from Car #1
         data = xbee.receive()
         print("Received data from Car #1: ", data) 
         if data == 2:
             motor.backward()
-            sleep(delay)
+            sleep(5)
             motor.stop()
             motor.cleanup()
             sys.exit(1)
+        '''
 
 except KeyboardInterrupt:
     motor.stop()

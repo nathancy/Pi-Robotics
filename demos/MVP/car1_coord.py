@@ -18,6 +18,8 @@ import motorControl, servoControl, xbeeControl
 from time import sleep
 import sys
 
+delay = 1.5
+
 # Instantiate object
 motor = motorControl.MotorControl()
 xbee = xbeeControl.XbeeControl()
@@ -37,28 +39,29 @@ try:
     # Scenario #1
     if(sys.argv[1] == '1'):
         print(sys.argv[1], "Scenario #1 Coordinator Car")
-        motor.forward()
-        sleep(3)
+        motor.backward()
+        sleep(delay)
 
         # Send stop signal from Car #1 to Car #2
         xbee.send("1", "C")
         print("Sent 1 from Car #1 to Car #2")
-        motor.forward()
-        sleep(3)
+        motor.backward()
+        sleep(2)
+        motor.stop()
         motor.cleanup()
         sys.exit(1)
 
     # Scenario #2
     if(sys.argv[1] == '2'):
         print(sys.argv[1], "Scenario #2 Coordinator Car")
-        motor.forward()
-        sleep(3)
+        motor.backward()
+        sleep(delay)
         
         # Send stop signal from Car #1 to Car #2
         xbee.send("2", "C")
         print("Sent 2 from Car #1 to Car #2")
-        motor.forward()
-        sleep(3)
+        motor.backward()
+        sleep(3.5)
         motor.stop()
         motor.cleanup()
         sys.exit(1)

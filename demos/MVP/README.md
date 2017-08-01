@@ -2,6 +2,8 @@
 
 Set of demos to demonstrate two realistic scenarios.
 
+`NOTE:` The file `motorControl.py` in this directory is DIFFERENT from `motorControl.py` in the main directory.
+
 ```
 Car #2 -> Car #1
 
