@@ -1,13 +1,12 @@
 # Script for MVP demo (Car #1 with Coordinator XBee)
 '''
-Car #1 <- Car #2
+Car #2 -> Car #1
 
 Two cars following each other
 
 Scenario #1: Car #1 is trustworthy
              Car #1 sends stop signal to car #2
-             Car #2 stops
-             Both cars stop
+             Car #1 moves forward, car #2 stops 
 
 Scenario #2: Car #1 is not trustworthy
              Car #1 sends stop signal to car #2
@@ -37,12 +36,13 @@ if len(sys.argv) is not 2:
 try:
     # Scenario #1
     if(sys.argv[1] == '1'):
-        print(sys.argv[1], "Scenario #1")
+        print(sys.argv[1], "Scenario #1 Coordinator Car")
         motor.forward()
         sleep(3)
 
         # Send stop signal from Car #1 to Car #2
         xbee.send("1", "C")
+        print("Sent 1 from Car #1 to Car #2")
         motor.forward()
         sleep(3)
         motor.cleanup()
@@ -50,12 +50,13 @@ try:
 
     # Scenario #2
     if(sys.argv[1] == '2'):
-        print(sys.argv[1], "Scenario #2")
+        print(sys.argv[1], "Scenario #2 Coordinator Car")
         motor.forward()
         sleep(3)
         
         # Send stop signal from Car #1 to Car #2
         xbee.send("2", "C")
+        print("Sent 2 from Car #1 to Car #2")
         motor.forward()
         sleep(3)
         motor.stop()
