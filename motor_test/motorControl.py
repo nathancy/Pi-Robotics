@@ -74,10 +74,10 @@ GPIO.setup(_LEFT_MOTOR_2, GPIO.OUT)
 GPIO.setup(_RIGHT_MOTOR_PWM_SPEED, GPIO.OUT)
 GPIO.setup(_LEFT_MOTOR_PWM_SPEED, GPIO.OUT)
 
-p1 = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
-p2 = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
-p1.start(50)
-p2.start(50)
+right_motor = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
+left_motor= GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
+right_motor.start(50)
+left_motor.start(50)
 
 # Initially "Turn off" all motors
 GPIO.output(_RIGHT_MOTOR_1, False)
@@ -171,6 +171,16 @@ class MotorControl(object):
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, False)
         GPIO.output(_LEFT_MOTOR_2, False)
+
+#-------------------------------------------------------------------------------           
+    # Change right motor PWM frequency in Hz
+    def changeRightPWM(self, frequency):
+        right_motor.ChangeFrequency(frequency)
+
+#-------------------------------------------------------------------------------           
+    # Change left motor PWM frequency in Hz
+    def changeLeftPWM(self, frequency):
+        left_motor.ChangeFrequency(frequency)
 
 #-------------------------------------------------------------------------------
     # Properly clean up GPIO
