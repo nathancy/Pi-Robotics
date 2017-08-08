@@ -57,3 +57,6 @@ python main.py
     * https://www.amazon.com/Hitec-31311S-HS-311-Standard-Universal/dp/B0006O3WVE/ref=sr_1_13?ie=UTF8&qid=1502217287&sr=8-
 * Venom Fly 30C 4S 5000mAh 14.8V LiPo Battery
     * https://www.amazon.com/Venom-5000mAh-14-8V-Battery-Deans/dp/B016ZM1S66/ref=sr_1_1?s=toys-and-
+
+# Robot Wiring Diagram
+![](docs/wiring-diagram.PNG)
