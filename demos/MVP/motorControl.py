@@ -116,9 +116,9 @@ class MotorControl(object):
         self._instances.append(self)
 
 #-------------------------------------------------------------------------------    
-    # Move FORWARD 
-    def forward(self):
-        #print("Forward")
+    # Move BACKWARD 
+    def backward(self):
+        #print("Backward")
         GPIO.output(_RIGHT_MOTOR_1, False)
         GPIO.output(_RIGHT_MOTOR_2, True)
         GPIO.output(_LEFT_MOTOR_1, True)
@@ -132,9 +132,9 @@ class MotorControl(object):
 	'''
             
 #-------------------------------------------------------------------------------
-    # Move BACKWARD 
-    def backward(self):
-        #print("Backward")
+    # Move FORWARD 
+    def forward(self):
+        #print("Forward")
         GPIO.output(_RIGHT_MOTOR_1, True)
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, False)
@@ -148,9 +148,9 @@ class MotorControl(object):
 	'''
 
 #-------------------------------------------------------------------------------
-    # Move RIGHT 
-    def right(self):
-        #print("right")
+    # Move LEFT 
+    def left(self):
+        #print("left")
         GPIO.output(_RIGHT_MOTOR_1, True)
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, True)
@@ -164,9 +164,9 @@ class MotorControl(object):
 	'''
 
 #-------------------------------------------------------------------------------
-    # Move LEFT 
-    def left(self):
-        #print("Left")
+    # Move RIGHT 
+    def right(self):
+        #print("right")
         GPIO.output(_RIGHT_MOTOR_1, False)
         GPIO.output(_RIGHT_MOTOR_2, True)
         GPIO.output(_LEFT_MOTOR_1, False)
