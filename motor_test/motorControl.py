@@ -61,7 +61,7 @@ _LEFT_MOTOR_PWM_SPEED = 32
 _STEP_DURATION = 1000
 
 # Controls motor strength
-_MOTOR_SPEED = 400
+_MOTOR_SPEED = 1000
 
 # Turn duration in milliseconds.
 _TURN_DURATION = 1800
@@ -74,10 +74,11 @@ GPIO.setup(_LEFT_MOTOR_2, GPIO.OUT)
 GPIO.setup(_RIGHT_MOTOR_PWM_SPEED, GPIO.OUT)
 GPIO.setup(_LEFT_MOTOR_PWM_SPEED, GPIO.OUT)
 
-p1 = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
-p2 = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
-p1.start(50)
-p2.start(50)
+right_motor = GPIO.PWM(_RIGHT_MOTOR_PWM_SPEED, 1400)
+left_motor = GPIO.PWM(_LEFT_MOTOR_PWM_SPEED, _MOTOR_SPEED)
+
+right_motor.start(50)
+left_motor.start(50)
 
 # Initially "Turn off" all motors
 GPIO.output(_RIGHT_MOTOR_1, False)
@@ -101,9 +102,9 @@ class MotorControl(object):
         self._instances.append(self)
 
 #-------------------------------------------------------------------------------    
-    # Move FORWARD 
-    def forward(self):
-        #print("Forward")
+    # Move BACKWARD 
+    def backward(self):
+        #print("Backward")
         GPIO.output(_RIGHT_MOTOR_1, False)
         GPIO.output(_RIGHT_MOTOR_2, True)
         GPIO.output(_LEFT_MOTOR_1, True)
@@ -117,9 +118,9 @@ class MotorControl(object):
 	'''
             
 #-------------------------------------------------------------------------------
-    # Move BACKWARD 
-    def backward(self):
-        #print("Backward")
+    # Move FORWARD 
+    def forward(self):
+        #print("Forward")
         GPIO.output(_RIGHT_MOTOR_1, True)
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, False)
@@ -133,9 +134,9 @@ class MotorControl(object):
 	'''
 
 #-------------------------------------------------------------------------------
-    # Move RIGHT 
-    def right(self):
-        #print("right")
+    # Move LEFT 
+    def left(self):
+        #print("left")
         GPIO.output(_RIGHT_MOTOR_1, True)
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, True)
@@ -149,9 +150,9 @@ class MotorControl(object):
 	'''
 
 #-------------------------------------------------------------------------------
-    # Move LEFT 
-    def left(self):
-        #print("Left")
+    # Move RIGHT 
+    def right(self):
+        #print("right")
         GPIO.output(_RIGHT_MOTOR_1, False)
         GPIO.output(_RIGHT_MOTOR_2, True)
         GPIO.output(_LEFT_MOTOR_1, False)
@@ -171,6 +172,16 @@ class MotorControl(object):
         GPIO.output(_RIGHT_MOTOR_2, False)
         GPIO.output(_LEFT_MOTOR_1, False)
         GPIO.output(_LEFT_MOTOR_2, False)
+
+#-------------------------------------------------------------------------------           
+    # Change right motor PWM frequency in Hz
+    def changeRightPWM(self, frequency):
+        right_motor.ChangeFrequency(frequency)
+
+#-------------------------------------------------------------------------------           
+    # Change left motor PWM frequency in Hz
+    def changeLeftPWM(self, frequency):
+        left_motor.ChangeFrequency(frequency)
 
 #-------------------------------------------------------------------------------
     # Properly clean up GPIO

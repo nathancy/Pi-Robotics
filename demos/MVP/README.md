@@ -2,6 +2,8 @@
 
 Set of demos to demonstrate two realistic scenarios.
 
+![](../../docs/robots.jpg)
+
 `NOTE:` The file `motorControl.py` in this directory is DIFFERENT from `motorControl.py` in the main directory.
 
 ```
