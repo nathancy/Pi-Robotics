@@ -64,4 +64,4 @@ python main.py
 ![](docs/block-diagram.jpg)
 
 # Robot Wiring Diagram
-![](docs/wiring-diagram.PNG)
+![](docs/new-wiring-diagram.PNG)
